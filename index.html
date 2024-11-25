@@ -1,0 +1,437 @@
+<html><head><base href="." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Maliha! 🎂</title>
+<style>
+:root {
+    --pink: #ffb7c5;
+    --purple: #e0b0ff;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Comic Sans MS', cursive;
+    background: var(--pink);
+    overflow-x: hidden;
+}
+
+#game-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+#maze-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.wall {
+    background: var(--purple);
+    position: absolute;
+}
+
+#player {
+    width: 20px;
+    height: 20px;
+    background: #ff69b4;
+    border-radius: 50%;
+    position: absolute;
+    transition: all 0.2s;
+}
+
+#cake {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    font-size: 24px;
+}
+
+.controls {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    z-index: 100;
+}
+
+.control-btn {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.punch-game {
+    display: none;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    height: 100vh;
+    background: #f0f0f0;
+}
+
+.character {
+    width: 200px;
+    height: 300px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(45deg, #ff69b4, #ff1493);
+    border-radius: 40% 40% 0 0;
+}
+
+.character::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: #ffd1dc;
+    border-radius: 50%;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.character::after {
+    content: '👀';
+    position: absolute;
+    font-size: 40px;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@keyframes punch {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(0.8) rotate(-15deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.punch-effect {
+    position: absolute;
+    font-size: 100px;
+    pointer-events: none;
+    animation: punchEffect 0.5s forwards;
+    z-index: 1000;
+}
+
+@keyframes punchEffect {
+    0% { 
+        transform: scale(0.5);
+        opacity: 1;
+    }
+    100% { 
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@keyframes characterShake {
+    0%, 100% { transform: translate(-50%, -50%); }
+    25% { transform: translate(-52%, -50%); }
+    75% { transform: translate(-48%, -50%); }
+}
+
+#final-message {
+    display: none;
+    padding: 40px;
+    text-align: center;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    line-height: 1.8;
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+#final-message h1 {
+    font-size: 3em;
+    color: #ff1493;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    animation: titlePop 1s ease-out;
+}
+
+#final-message .love-message {
+    font-size: 1.4em;
+    color: #ff4081;
+    margin: 30px auto;
+    max-width: 800px;
+    padding: 20px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+#final-message .personal-message {
+    font-size: 1.2em;
+    line-height: 1.8;
+    margin: 30px auto;
+    max-width: 800px;
+    padding: 30px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 20px;
+    text-align: left;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border: 2px solid var(--purple);
+    color: #444;
+    white-space: pre-line; /* This will preserve line breaks */
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes titlePop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.heart-decoration {
+    position: fixed;
+    font-size: 30px;
+    animation: floatHeart 3s infinite ease-in-out;
+    opacity: 0.6;
+}
+
+@keyframes floatHeart {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
+}
+
+.floating-cat {
+    position: fixed;
+    font-size: 40px;
+    animation: float 3s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+</style>
+</head>
+<body>
+<div id="game-container">
+    <div id="maze-container">
+        <div id="player"></div>
+        <div id="cake">🎂</div>
+    </div>
+    <div class="controls">
+        <button class="control-btn" onclick="move('up')">⬆️</button>
+        <button class="control-btn" onclick="move('left')">⬅️</button>
+        <button class="control-btn" onclick="move('right')">➡️</button>
+        <button class="control-btn" onclick="move('down')">⬇️</button>
+    </div>
+</div>
+
+<div class="punch-game">
+    <h2>Punch Time! 👊</h2>
+    <p id="punch-counter">Punches left: 20</p>
+    <div class="character"></div>
+    <div class="punch-items">
+        <span class="punch-item">👊</span>
+        <span class="punch-item">💥</span>
+        <span class="punch-item">🥊</span>
+        <span class="punch-item">⚡</span>
+        <span class="punch-item">💪</span>
+    </div>
+</div>
+
+<div id="final-message"></div>
+
+<script>
+const mazeWidth = window.innerWidth;
+const mazeHeight = window.innerHeight;
+let playerX = 10;
+let playerY = 10;
+const player = document.getElementById('player');
+const cake = document.getElementById('cake');
+let punchCount = 20;
+const STEP_SIZE = 20;
+
+function move(direction) {
+    let newX = playerX;
+    let newY = playerY;
+    
+    switch(direction) {
+        case 'up':
+            newY -= STEP_SIZE;
+            break;
+        case 'down':
+            newY += STEP_SIZE;
+            break;
+        case 'left':
+            newX -= STEP_SIZE;
+            break;
+        case 'right':
+            newX += STEP_SIZE;
+            break;
+    }
+    
+    // Check boundaries
+    if (newX < 0) newX = 0;
+    if (newY < 0) newY = 0;
+    if (newX > mazeWidth - 20) newX = mazeWidth - 20;
+    if (newY > mazeHeight - 20) newY = mazeHeight - 20;
+    
+    // Check collision with walls
+    const walls = document.querySelectorAll('.wall');
+    let collision = false;
+    
+    walls.forEach(wall => {
+        const wallRect = wall.getBoundingClientRect();
+        const playerRect = {
+            left: newX,
+            right: newX + 20,
+            top: newY,
+            bottom: newY + 20
+        };
+        
+        if (!(playerRect.right < wallRect.left || 
+            playerRect.left > wallRect.right || 
+            playerRect.bottom < wallRect.top || 
+            playerRect.top > wallRect.bottom)) {
+            collision = true;
+        }
+    });
+    
+    if (!collision) {
+        playerX = newX;
+        playerY = newY;
+        player.style.left = playerX + 'px';
+        player.style.top = playerY + 'px';
+        
+        // Check if player reached cake
+        const cakeRect = cake.getBoundingClientRect();
+        const playerRect = player.getBoundingClientRect();
+        
+        if (!(playerRect.right < cakeRect.left || 
+            playerRect.left > cakeRect.right || 
+            playerRect.bottom < cakeRect.top || 
+            playerRect.top > cakeRect.bottom)) {
+            startPunchGame();
+        }
+    }
+}
+
+// Generate maze walls
+function generateMaze() {
+    const walls = [
+        // Horizontal walls
+        {x: 0, y: 50, width: mazeWidth-100, height: 10},
+        {x: 100, y: 150, width: mazeWidth-150, height: 10},
+        {x: 0, y: 250, width: mazeWidth-100, height: 10},
+        // Vertical walls
+        {x: 100, y: 50, width: 10, height: 200},
+        {x: 200, y: 150, width: 10, height: 200},
+        {x: 300, y: 50, width: 10, height: 200}
+    ];
+
+    walls.forEach(wall => {
+        const wallElement = document.createElement('div');
+        wallElement.className = 'wall';
+        wallElement.style.left = wall.x + 'px';
+        wallElement.style.top = wall.y + 'px';
+        wallElement.style.width = wall.width + 'px';
+        wallElement.style.height = wall.height + 'px';
+        document.getElementById('maze-container').appendChild(wallElement);
+    });
+
+    // Position cake at end of maze
+    cake.style.left = (mazeWidth - 50) + 'px';
+    cake.style.top = (mazeHeight - 50) + 'px';
+}
+
+function startPunchGame() {
+    document.getElementById('game-container').style.display = 'none';
+    document.querySelector('.punch-game').style.display = 'block';
+    
+    const character = document.querySelector('.character');
+    
+    document.querySelectorAll('.punch-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            punchCount--;
+            document.getElementById('punch-counter').textContent = `Punches left: ${punchCount}`;
+            
+            // Create punch effect
+            const effect = document.createElement('div');
+            effect.className = 'punch-effect';
+            effect.innerHTML = '💥';
+            effect.style.left = e.clientX + 'px';
+            effect.style.top = e.clientY + 'px';
+            document.body.appendChild(effect);
+            
+            // Animate character
+            character.style.animation = 'characterShake 0.2s ease-in-out';
+            setTimeout(() => {
+                character.style.animation = '';
+            }, 200);
+            
+            // Remove effect after animation
+            setTimeout(() => {
+                effect.remove();
+            }, 500);
+            
+            if (punchCount <= 0) {
+                showFinalMessage();
+            }
+        });
+    });
+}
+
+function showFinalMessage() {
+    document.querySelector('.punch-game').style.display = 'none';
+    const finalMessage = document.getElementById('final-message');
+    finalMessage.style.display = 'block';
+    
+    finalMessage.innerHTML = `
+        <h1>Happy Birthday Maliha! 🎂</h1>
+        <div class="love-message">
+            Maliha, my love, you are the most precious gift in my life. Every moment with you is a treasure I hold dear to my heart. Your smile lights up my world and your love gives meaning to every day. You are my everything, my forever, my always. Eita onk age banai raksi but had to say a few more things and yea im sorry bole jawa uchit chilo but jotoi kisu huk idt i deserved to be treated like that just cause na bole friend der sathe gesi and khali ekbar just ekbar cancel korsi i tried making it up many times ful diwar try korsi jeita churi korte haat kete gesilo since kata chilo(forget the churi part) but felai dite bolso still chupchap chole aschi ratre tmk msg dite gesi but dekhi tmi story diye rakso but bolo you mad?? notes dao but you mad? taina after all this still silent chilam but maliha idt this time i can fix us. This time its upto you if you can and want to fix us then ig u can try but idt ami parbo. And if you cant and its the end ill just say je in all my shitty life my best moments were the ones spent with you honestly speaking. Among all the problems and tensions you were somehow my only escape. Loving you and trying and having you was my best decision and this would be my worst. ik ill regret it more than anth but i just cant this time. this aint my last message klk amr sathe dekha koiro kitchen khali thakle kitchen or lift er shamne one last time. Dw we wont talk or do anth just wanna meet. i aint breaking up since i promised i wont leave you but if you do then try not to date anyone else just biye korba. shits easy. So yea and no matter what happens i loved you i still do and i always will... Have a blast on your Birthday eishob niye pera nio na and yea Happy Birthday Jaan ❤️
+        </div>
+        <div class="personal-message">
+            ${document.querySelector('[data-message]').textContent}
+        </div>
+    `;
+    
+    // Add floating hearts instead of cats
+    for (let i = 0; i < 15; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart-decoration';
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+        heart.style.top = Math.random() * window.innerHeight + 'px';
+        heart.style.animationDelay = (Math.random() * 2) + 's';
+        document.body.appendChild(heart);
+    }
+}
+
+generateMaze();
+</script>
+
+<div hidden data-message="eita onk age banai raksi but had to say a few more things and yea im sorry bole jawa uchit chilo but jotoi kisu huk idt i deserved to be treated like that just cause na bole friend der sathe gesi and khali ekbar just ekbar cancel korsi i tried making it up many times ful diwar try korsi jeita churi korte haat kete gesilo since kata chilo(forget the churi part) but felai dite bolso still chupchap chole aschi ratre tmk msg dite gesi but dekhi tmi story diye rakso but bolo you mad?? notes dao but you mad? taina after all this still silent chilam but maliha idt this time i can fix us. This time its upto you if you can and want to fix us then ig u can try but idt ami parbo. And if you cant and its the end ill just say je in all my shitty life my best moments were the ones spent with you honestly speaking. Among all the problems and tensions you were somehow my only escape. Loving you and trying and having you was my best decision and this would be my worst. ik ill regret it more than anth but i just cant this time. this aint my last message klk amr sathe dekha koiro kitchen khali thakle kitchen or lift er shamne one last time. Dw we wont talk or do anth just wanna meet. i aint breaking up since i promised i wont leave you but if you do then try not to date anyone else just biye korba. shits easy. So yea and no matter what happens i loved you i still do and i always will... Have a blast on your Birthday eishob niye pera nio na and yea Happy Birthday Jaan"></div>
+
+</body></html>
